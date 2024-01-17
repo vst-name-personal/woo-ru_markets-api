@@ -4,15 +4,26 @@ from dotenv import load_dotenv
 import requests
 
 from modules.woo import *
+from modules.markets.ozon import *
+from modules.markets.wb import *
+from modules.markets.ym import *
 
 load_dotenv()
 
 #woo
-# Function to get all products and update attributes
 # Get all products from WooCommerce API
-products_url = os.getenv('woo_products')
+products_url = "***REMOVED***/wp-json/wc/v3/products"
+attributes_url = "***REMOVED***/wp-json/wc/v3/products/attributes"
 consumer_key = os.getenv('consumer_key')
 consumer_secret = os.getenv('consumer_secret')
+#Ozon
+ozon_client = os.getenv('Client-Id')
+ozon_key = os.getenv('Api-Key')
+#WB
+wb_token = os.getenv('wb_token')
+#YM
+# Function to get all products and update attributes
+
 
 # Function to get all products and update attributes
 def update_product(page=1):
@@ -31,27 +42,75 @@ def update_product(page=1):
 
             # Loop through each product
             for product in products:
-                market_attributes = ["ozon_url", "wb_url", "ym_url", "mm_url", "vk_url"]
+                market_attributes = ("ozon_url", "ozon_stock", "wb_url", "wb_stock", "ym_url", "ym_stock", "mm_url", "mm_stock", "vk_url", "vk_stock")
+                new_attributes = []
                 market_urls = 0
                 product_modified = 0
+                product_new_attribute = 0
                 sku = product.get("sku")
                 if sku == "None":
-                    print(f"SKu for prodcut {product.get('id')} is not set")
+                    print(f"SKU for prodcut {product.get('id')} is not set")
                     break
-                # Check if the product has the specified attributes
+                ozon = ozon_request_product_info(product.get("sku"), ozon_client, ozon_key)
+                #wb = wb_request_product_info(product.get("sku"), wb_token)
+                #ym = ym_request_product_info(product.get("sku"), ym_token)
+                # Attributes modification
+                #Grabbing attributes
                 if 'attributes' in product:
                     attributes = product['attributes']
-                    # Flag to check if any attributes were modified
                     # List of attributes to check and update
-                    for attribute in attributes:
-                        if attribute['name'] in market_attributes:
-                            # Check if the attribute is set to 'visible'
-                            if attribute['visible']:
-                                # Update the attribute to 'visible: false'
+                if ozon:
+                    if not any(attr.get('name') == 'ozon_url' for attr in attributes):
+                        new_attributes.append({
+                            'name': 'ozon_url',
+                            'slug': 'pa_ozon_url',
+                            "order_by": "menu_order"
+                        })
+                        product_new_attribute += 1
+                    if not any(attr.get('name') == 'ozon_stock' for attr in attributes):
+                        new_attributes.append({
+                            'name': 'ozon_stock',
+                            'slug': 'pa_ozon_stock',
+                            "order_by": "menu_order"
+                        })
+                        product_new_attribute += 1
+                    if not any(attr.get('name') == 'ozon_price' for attr in attributes):
+                        new_attributes.append({
+                            'name': 'ozon_price',
+                            'slug': 'pa_ozon_price',
+                            "order_by": "menu_order"
+                        })
+                        product_new_attribute += 1
+                        
+                    if product_new_attribute:
+                        print(f"fetching existing attributes")
+                        attribute_list = requests.get(attributes_url, auth=(consumer_key, consumer_secret))
+                        for new_attribute in new_attributes:
+                            if attribute_list.status_code == 200:
+                                existing_attributes = attribute_list.json()
+                                if not any(attr['name'] == new_attribute['name'] for attr in existing_attributes):
+                                    print(f"no {new_attribute['name']} attribute found in existing attributes")
+                                    payload = new_attribute
+                                    print(f"attemting to create attribute {new_attribute['name']}")
+                                    update_response = requests.post(attributes_url, auth=(consumer_key, consumer_secret), json=payload)
+                                    attribute_list = requests.get(attributes_url, auth=(consumer_key, consumer_secret))
+                        
+                #Update attributes with imported values(if changed)
+                for attribute in attributes:
+                    #Checking and updating market attribute terms
+                    if ozon:
+                        if attribute['name'] == 'ozon_url':
+                            if attribute.get('value') != ozon[0]:
+                                attribute['options'].append(ozon[0])
                                 attribute['visible'] = False
                                 product_modified += 1
-                            if 'options' in attribute and attribute['options'] and attribute['options'][0]:
-                                market_urls += 1
+                    #Checking and updating market attributes visibility
+                    if attribute['name'] in market_attributes: 
+                        if attribute['visible']:
+                            attribute['visible'] = False
+                            product_modified += 1
+                        if 'options' in attribute and attribute['options'] and attribute['options'][0]:
+                            market_urls += 1
 
                 # Check if it's ready to publish
                 if (
@@ -69,12 +128,11 @@ def update_product(page=1):
                         product_modified += 1
 
                 # Update the product with modified attributes
-                if product_modified > 0:
+                if product_modified:
                     product_id = product['id']
                     update_url = f"{products_url}/{product_id}"
                     update_payload = {'attributes': product.get('attributes', []), 'status': product['status']}
-                    update_response = requests.post(update_url, auth=(consumer_key, consumer_secret), json=update_payload)
-
+                    update_response = requests.put(update_url, auth=(consumer_key, consumer_secret), json=update_payload)
                     if update_response.status_code == 200:
                         print(f"Product {product_id}  updated successfully.")
                     else:
