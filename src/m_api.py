@@ -1,5 +1,7 @@
 from curses.ascii import isdigit
 import os
+
+
 from urllib import response
 from dotenv import load_dotenv
 from concurrent.futures import ThreadPoolExecutor 
@@ -12,7 +14,6 @@ from modules.markets.wb import *
 from modules.markets.ym import *
 
 load_dotenv()
-
 #Ozon
 ozon_client = str(os.getenv('Client-Id'))
 ozon_key = str(os.getenv('Api-Key'))
@@ -164,7 +165,10 @@ def main(page):
 
             # Update the product with modified attributes
             if product_modified:
-                updated_product = update_product(product)
+                response = update_product(product)
+                if response.status_code == 200:
+                    print(f"Finished work on product {product['id']}")
+                
 
         # Move to the next page
         page += 1

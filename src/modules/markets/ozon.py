@@ -29,7 +29,6 @@ def ozon_request_product_info(SKU, ozon_client, ozon_key):
                     'url': ozon_url,
                     'stock': ozon_stock,
                     'price': ozon_price}
-            #print(f"{data} + " " {ozon_url},+ " " +{ozon_stock},+ " " +{ozon_price}")
             return data
     else:
         print(f"ozon api http error: {response.status_code}")
