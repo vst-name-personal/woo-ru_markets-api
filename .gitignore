@@ -1,4 +1,30 @@
-.env
+#project specific
+.vscode
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyz
+*.pyw
+
+# Virtual Environment
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+.vscode/
+
+# IDE files
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
