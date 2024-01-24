@@ -1,8 +1,5 @@
-from curses.ascii import isdigit
 import os
 
-
-from urllib import response
 from dotenv import load_dotenv
 from concurrent.futures import ThreadPoolExecutor 
 
@@ -20,23 +17,13 @@ ozon_key = str(os.getenv('Api-Key'))
 #WB
 wb_token = str(os.getenv('wb_token'))
 
-market_attributes = ("ozon_url", "ozon_stock", "wb_url", "wb_stock", "ym_url", "ym_stock", "mm_url", "mm_stock")
+market_attributes = ("ozon_url", "ozon_stock", "ozon_enabled" "wb_url", "wb_stock", "wb_enabled", "ym_url", "ym_stock", "ym_enabled", "mm _url", "mm_stock", "mm_enabled")
 markets_list = ("ozon", "wb", "ym", "mm", "vk")
 attribute_list = add_missing_attributes(market_attributes)
-#cleanup_terms()
+cleanup_terms()
 page = 1
-def main(page):    
+def main(products, page=None):    
     while True:
-        # Get products from WooCommerce API with pagination
-        products, response_status_code, page = get_products(page)
-        
-        if products:
-            print(f"Fetching products...response is {response_status_code}")
-            # Break the loop if there are no more pages
-        if not products:
-            print(f"no more products, page: {page}")
-            break
-        
         # Loop through each product
         for product in products:
             market_urls = 0
@@ -107,9 +94,7 @@ def main(page):
             product_updated = add_product_attributes(product, market_attributes)
             if product_updated:
                 try:
-                    #product2 = {**product, **product_updated}
                     product =  {**product, **product_updated}
-                    #product.update(product_updated)
                 except Exception as e:
                     print(f"product update exception e: {e}")
             #Checking and updating market attribute terms
@@ -166,13 +151,40 @@ def main(page):
             # Update the product with modified attributes
             if product_modified:
                 response = update_product(product)
-                if response.status_code == 200:
-                    print(f"Finished work on product {product['id']}")
-                
 
         # Move to the next page
-        page += 1
+        if page:
+            page += 1
         print(f"Getting page {page}")
         
 if __name__ == "__main__":
-    main(page)
+    # Get products from WooCommerce API
+    count = get_products_count()
+    if count:
+        if count > 100:
+            products = None
+            response_status_code = None
+            woo_response = get_products(page)
+            print(f"Fetching products...response is {response_status_code}")
+            if products in woo_response: products = woo_response["products"]
+            if response_status_code in woo_response: response_status_code = woo_response["response_status_code"]
+            if page in woo_response: page = woo_response["page"]
+        else:
+            products = None
+            response_status_code = None
+            woo_response = get_products()
+            print(f"Fetching products...response is {response_status_code}")
+            if products in woo_response: products = woo_response["products"]
+            if response_status_code in woo_response: response_status_code = woo_response["response_status_code"]
+            if page in woo_response: page = woo_response["page"]
+        if not products and response_status_code != 200:
+            print(f"no more products, page: {page}")
+            products, response_status_code, page = get_products(page)
+            if products and response_status_code == 200:
+                print(f"Fetching products failed - response is {response_status_code}")
+                # Break the loop if there are no more pages
+            if not products and response_status_code != 200:
+                print(f"no more products, page: {page}")
+                exit()
+        print(f"Number of retrieved products in: {len(products)}")
+        main(products, page)

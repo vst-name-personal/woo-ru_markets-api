@@ -12,7 +12,7 @@ def ozon_request_product_info(SKU, ozon_client, ozon_key):
 
     response = requests.post(url, headers=headers, json=json_body)
     if response.status_code == 404:
-        print(f"replacing substring in {SKU}")
+        print(f"Response == 404, replacing substring in {SKU}")
         json_body["offer_id"] = json_body["offer_id"].replace(".", ",")
         print(f"making request for ozon info {SKU}")
         response = requests.post(url, headers=headers, json=json_body)

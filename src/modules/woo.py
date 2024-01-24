@@ -5,19 +5,23 @@ import requests
 site_url = os.getenv('site_url')
 service_url = os.getenv("service_url", "None")
 if service_url:
-    dummy_request = request.get("https://google.com")
+    dummy_request = requests.get("https://google.com")
     default_headers = dummy_request.request.headers
-    host_header = {"Host": service_url}
-    service_headers = {**default_headers, **service_url}
+    host_header = {"Host": site_url}
+    service_headers = {**default_headers, **host_header}
+else:
+    host_header = None
 consumer_key = os.getenv('consumer_key')
 consumer_secret = os.getenv('consumer_secret')
 
 def get_all_attributes():
     print("retrieving global list of attributes")
     if host_header:
-        response = requests.get(f"{site_url}/wp-json/wc/v3/products/attributes", auth=(consumer_key, consumer_secret), headers=service_headers)
+        print("host header true")
+        response = requests.get(f"{service_url}/wp-json/wc/v3/products/attributes", auth=(consumer_key, consumer_secret), headers=service_headers)
     else:
-        response = requests.get(f"{site_url}/wp-json/wc/v3/products/attributes", auth=(consumer_key, consumer_secret), headers=service_headers)
+        print("host header false")
+        response = requests.get(f"{site_url}/wp-json/wc/v3/products/attributes", auth=(consumer_key, consumer_secret))
     if response.status_code == 200:
         attribute_list = response.json()
         return attribute_list
@@ -53,11 +57,13 @@ def add_product_attributes(product, market_attributes):
 def post_attributes(payload):
     print("posting new attributes to global")
     if host_header:
-        response = requests.post(f"{site_url}/wp-json/wc/v3/products/attributes", auth=(consumer_key, consumer_secret), json=payload, headers=service_headers)
+        response = requests.post(f"{service_url}/wp-json/wc/v3/products/attributes", auth=(consumer_key, consumer_secret), json=payload, headers=service_headers)
     else:
-        response = requests.post(f"{site_url}/wp-json/wc/v3/products/attributes", auth=(consumer_key, consumer_secret), json=payload, headers=service_headers)
-    if response.status_code != 200:
+        response = requests.post(f"{site_url}/wp-json/wc/v3/products/attributes", auth=(consumer_key, consumer_secret), json=payload)
+    if response and response.status_code != 200:
         print(f"Failed to post attributes {response.status_code}")
+        return
+    return response
 
 def get_terms(**kwargs):
     product_id = 0
@@ -71,12 +77,12 @@ def get_terms(**kwargs):
     if product_id:
         payload={"product": product_id}
         if host_header:
-            response = requests.get(f"{site_url}/wp-json/wc/v3/products/attributes/{attribute_id}/terms", auth=(consumer_key, consumer_secret), headers=service_headers)
+            response = requests.get(f"{service_url}/wp-json/wc/v3/products/attributes/{attribute_id}/terms", auth=(consumer_key, consumer_secret), headers=service_headers)
         else:
             response = requests.get(f"{site_url}/wp-json/wc/v3/products/attributes/{attribute_id}/terms", auth=(consumer_key, consumer_secret), json=payload)
     else:
         if host_header:
-            response = requests.get(f"{site_url}/wp-json/wc/v3/products/attributes/{attribute_id}/terms", auth=(consumer_key, consumer_secret), headers=service_headers)
+            response = requests.get(f"{service_url}/wp-json/wc/v3/products/attributes/{attribute_id}/terms", auth=(consumer_key, consumer_secret), headers=service_headers)
         else:
             response = requests.get(f"{site_url}/wp-json/wc/v3/products/attributes/{attribute_id}/terms", auth=(consumer_key, consumer_secret))
     if response.status_code == 200:
@@ -109,7 +115,7 @@ def update_terms(product, market, attribute, market_attributes):
                             if attribute_terms[0]["id"]:
                                 term_id = str(attribute_terms[0]["id"])
                                 if host_header:
-                                    response = requests.put(f"{site_url}/wp-json/wc/v3/products/attributes/{attribute['id']}/terms/{term_id}", auth=(consumer_key, consumer_secret), json=attribute_terms[0], headers=service_headers)
+                                    response = requests.put(f"{service_url}/wp-json/wc/v3/products/attributes/{attribute['id']}/terms/{term_id}", auth=(consumer_key, consumer_secret), json=attribute_terms[0], headers=service_headers)
                                 else:
                                     response = requests.put(f"{site_url}/wp-json/wc/v3/products/attributes/{attribute['id']}/terms/{term_id}", auth=(consumer_key, consumer_secret), json=attribute_terms[0])
                                 attribute["options"] = market_url
@@ -117,7 +123,7 @@ def update_terms(product, market, attribute, market_attributes):
                         payload = {"name": market_url,
                                     "slug": str(product["id"]) + "_" + market + "_url"}
                         if service_url:
-                            response = requests.post(f"{site_url}/wp-json/wc/v3/products/attributes/{attribute['id']}/terms", auth=(consumer_key, consumer_secret), json=payload, headers=service_headers)
+                            response = requests.post(f"{service_url}/wp-json/wc/v3/products/attributes/{attribute['id']}/terms", auth=(consumer_key, consumer_secret), json=payload, headers=service_headers)
                         else:
                             response = requests.post(f"{site_url}/wp-json/wc/v3/products/attributes/{attribute['id']}/terms", auth=(consumer_key, consumer_secret), json=payload)
                         term_data = response.json()
@@ -131,8 +137,6 @@ def update_terms(product, market, attribute, market_attributes):
                 #url_set = True
     return product
  
-
-                    
 def cleanup_terms():
     print("Initiating orphaned terms cleanup")
     attributes = get_all_attributes()
@@ -153,20 +157,50 @@ def cleanup_terms():
 
 def delete_term(attribute_id, term_id):
     if service_url:
-        requests.delete(f"{site_url}/wp-json/wc/v3/products/attributes/{attribute_id}/terms/{term_id}", auth=(consumer_key, consumer_secret), headers=service_headers)
+        requests.delete(f"{service_url}/wp-json/wc/v3/products/attributes/{attribute_id}/terms/{term_id}", auth=(consumer_key, consumer_secret), headers=service_headers)
     else:
         requests.delete(f"{site_url}/wp-json/wc/v3/products/attributes/{attribute_id}/terms/{term_id}", auth=(consumer_key, consumer_secret))
 
-def get_products(page):
-    print(f"retrieving products on page {page}")
-    params = {"page": page}
+def get_products_count():
+    print(f"retrieving products count")
     if host_header:
-        response = requests.get(f"{site_url}/wp-json/wc/v3/products", auth=(consumer_key, consumer_secret), params=params, headers=service_headers)
+        response = requests.get(f"{service_url}/wp-json/wc/v3/reports/products/totals", auth=(consumer_key, consumer_secret), headers=service_headers)
     else:
-        response = requests.get(f"{site_url}/wp-json/wc/v3/products", auth=(consumer_key, consumer_secret), params=params)
+        response = requests.get(f"{site_url}/wp-json/wc/v3/reports/products/totals", auth=(consumer_key, consumer_secret))
+    if response.status_code == 200:
+        data = response.json()
+        count = 0
+        for info in data:
+            count += int(info["total"])
+        if count != 0:
+            return count
+        else:
+            return
+    else:
+        return
+
+def get_products(page=None):
+    print(f"retrieving all products")
+    if page:
+        params = {"page": page}
+        print(f"retrieving products on page {page}")
+    if host_header:
+        print("Service host url is present")
+        if page:
+            response = requests.get(f"{service_url}/wp-json/wc/v3/products", auth=(consumer_key, consumer_secret), params=params, headers=service_headers)
+        else:
+            response = requests.get(f"{service_url}/wp-json/wc/v3/products", auth=(consumer_key, consumer_secret), headers=service_headers)
+    else:
+        if page:
+            response = requests.get(f"{site_url}/wp-json/wc/v3/products", auth=(consumer_key, consumer_secret), params=params)
+        else:
+            response = requests.get(f"{site_url}/wp-json/wc/v3/products", auth=(consumer_key, consumer_secret))
     if response.status_code == 200:
         products = response.json()
-        return products, int(response.status_code), int(page)
+        if page:
+            return products, int(response.status_code), int(page)
+        else:
+            return products, int(response.status_code)
     else:
         print(f"Failed to get product on {page}, http code is {response.status_code}")
         page += 1
@@ -175,7 +209,6 @@ def get_products(page):
 def update_product(product):
     print(f"Updating product {product.get('id')}, with SKU: {product.get('sku')}")
     product_id = product['id']
-    update_url = f"{site_url}/wp-json/wc/v3/products/{product_id}"
     payload = {
         'name': product['name'],
         'attributes': product.get('attributes', []),
@@ -186,9 +219,9 @@ def update_product(product):
         'status': product['status']
     }
     if service_url:
-        response = requests.put(update_url, auth=(consumer_key, consumer_secret), json=payload, headers=service_headers)
+        response = requests.put(f"{service_url}/wp-json/wc/v3/products/{product_id}", auth=(consumer_key, consumer_secret), json=payload, headers=service_headers)
     else:
-        response = requests.put(update_url, auth=(consumer_key, consumer_secret), json=payload)
+        response = requests.put(f"{site_url}/wp-json/wc/v3/products/{product_id}", auth=(consumer_key, consumer_secret), json=payload)
     if response.status_code == 200:
         print(f"Product {product_id}  updated successfully.")
         product_updated = response.json()
@@ -218,7 +251,9 @@ def add_missing_attributes(market_attributes):
                     print(f"No {new_attribute['name']} attribute found in existing attributes.")
                     print(f"Attempting to create attribute {new_attribute['name']}.")
                     response = post_attributes(new_attribute)
-                    data = response.json()
-                    attribute_list = data
-    
+                    if response:
+                        data = response.json()
+                        attribute_list = data
+                    else:
+                        return
     return attribute_list
