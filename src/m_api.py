@@ -1,4 +1,5 @@
 import os
+import time
 
 from dotenv import load_dotenv
 from concurrent.futures import ThreadPoolExecutor 
@@ -76,7 +77,8 @@ def main():
                     #ym = future_ym.result()
                     #mm = future_mm.result()
                 except Exception as e:
-                    logger.error(f"futures error = {e}")
+                    logger.critical(f"futures error = {e}")
+            time.sleep(1)
             #ozon = ozon_request_product_info(sku, ozon_client, ozon_key)
             if ozon or wb or ym or mm:
                 stock = 0
