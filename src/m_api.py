@@ -25,6 +25,7 @@ page = 1
 def main(products, page=None):    
     while True:
         # Loop through each product
+        products_modified = 0
         for product in products:
             market_urls = 0
             product_modified = 0
@@ -151,12 +152,15 @@ def main(products, page=None):
             # Update the product with modified attributes
             if product_modified:
                 response = update_product(product)
-
+            products_modified += 1
+            
         # Move to the next page
         if page:
             page += 1
+        if product_modified > 1:
+            response = update_product(product)
         print(f"Getting page {page}")
-        
+            
 if __name__ == "__main__":
     # Get products from WooCommerce API
     count = get_products_count()
