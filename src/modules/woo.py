@@ -5,8 +5,8 @@ from modules.logger import logger
 
 # Get all products from WooCommerce API
 site_url = os.getenv('site_url')
-service_url = os.getenv("service_url", "None")
-if service_url:
+service_url = os.getenv("service_url")
+if service_url is not None:
     dummy_request = requests.get("https://google.com")
     default_headers = dummy_request.request.headers
     host_header = {"Host": site_url}
@@ -16,43 +16,18 @@ else:
 consumer_key = os.getenv('consumer_key')
 consumer_secret = os.getenv('consumer_secret')
 
-def get_products_count():
-    logger.debug(f"retrieving products count")
-    if host_header:
-        response = requests.get(f"{service_url}/wp-json/wc/v3/reports/products/totals", auth=(consumer_key, consumer_secret), headers=service_headers)
-    else:
-        response = requests.get(f"{site_url}/wp-json/wc/v3/reports/products/totals", auth=(consumer_key, consumer_secret))
-    if response.status_code == 200:
-        data = response.json()
-        count = 0
-        for info in data:
-            count += int(info["total"])
-        if count != 0:
-            return count
-        else:
-            return
-    else:
-        logger.error(f"Retrieval products count failed...{response.status_code}")
-        return
-
-def get_products(page=None):
+def get_products(page):
     if page:
         params = {"page": page}
         logger.debug(f"retrieving products on page {page}")
     else:
-        params = {"per_page": "100"}
-        logger.debug(f"retrieving all products")
+        return None
+    logger.debug(f"Fetching page {page}")
     if host_header:
         logger.debug("Service host url is present")
-        if page:
-            response = requests.get(f"{service_url}/wp-json/wc/v3/products", auth=(consumer_key, consumer_secret), params=params, headers=service_headers)
-        else:
-            response = requests.get(f"{service_url}/wp-json/wc/v3/products", auth=(consumer_key, consumer_secret), headers=service_headers)
+        response = requests.get(f"{service_url}/wp-json/wc/v3/products", auth=(consumer_key, consumer_secret), params=params, headers=service_headers)
     else:
-        if page:
-            response = requests.get(f"{site_url}/wp-json/wc/v3/products", auth=(consumer_key, consumer_secret), params=params)
-        else:
-            response = requests.get(f"{site_url}/wp-json/wc/v3/products", auth=(consumer_key, consumer_secret))
+        response = requests.get(f"{site_url}/wp-json/wc/v3/products", auth=(consumer_key, consumer_secret), params=params)
     if response.status_code == 200:
         products = response.json()
         if page:
@@ -92,21 +67,27 @@ def update_product(product):
 def batch_update_product(products):
     logger.info(f"Batch updating products...{len(products)}")
     payload_list = []
+    b = {}
     if products:
+        # Prepare updates for each product
         for product in products:
-            payload_list.append({"update": [{
-                        'name': product['name'],
-                        #'attributes': product.get('attributes', []),
-                        'status': product['status'],
-                        'price': product['price'],
-                        'manage_stock': product['manage_stock'],
-                        'stock_quantity': product['stock_quantity'],
-                        'meta_data': product['meta_data']
-                        }]})
+            meta_data_dict = product["meta_data"]
+            payload_list.append({
+                "id": product['id'],
+                'status': product['status'],
+                'price': str(product['price']),
+                'regular_price': str(product['regular_price']),
+                'manage_stock': product['manage_stock'],
+                'stock_quantity': product['stock_quantity'],
+                "meta_data": product["meta_data"]
+            })
+
+        # Send a single request with all updates
+        update_payload = {"update": payload_list}
         if service_url:
-            response = requests.put(f"{service_url}/wp-json/wc/v3/products/batch", auth=(consumer_key, consumer_secret), json=payload_list, headers=service_headers)
+            response = requests.post(f"{service_url}/wp-json/wc/v3/products/batch", auth=(consumer_key, consumer_secret), json=update_payload, headers=service_headers)
         else:
-            response = requests.put(f"{site_url}/wp-json/wc/v3/products/batch", auth=(consumer_key, consumer_secret), json=payload_list)
+            response = requests.post(f"{site_url}/wp-json/wc/v3/products/batch", auth=(consumer_key, consumer_secret), json=update_payload)
         if response.status_code == 200:
             logger.info(f"Products  updated successfully.")
             return int(response.status_code)

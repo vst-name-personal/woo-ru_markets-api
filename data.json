@@ -1,0 +1,965 @@
+{
+    "1205": {
+        "market_name": "wb",
+        "sku": "Гдсдет/5 л",
+        "url": "https://www.wildberries.ru/catalog/182962451/detail.aspx",
+        "stock": 0,
+        "price": 654,
+        "nmID": "182962451",
+        "barcodes": [
+            "4673756160548"
+        ]
+    },
+    "1206": {
+        "market_name": "wb",
+        "sku": "Гдсдетббг/1.5л",
+        "url": "https://www.wildberries.ru/catalog/182962452/detail.aspx",
+        "stock": 0,
+        "price": 418,
+        "nmID": "182962452",
+        "barcodes": [
+            "4673756160555"
+        ]
+    },
+    "1203": {
+        "market_name": "wb",
+        "sku": "Гдсдет/1.5л",
+        "url": "https://www.wildberries.ru/catalog/182962449/detail.aspx",
+        "stock": 0,
+        "price": 419,
+        "nmID": "182962449",
+        "barcodes": [
+            "4673756160524"
+        ]
+    },
+    "1204": {
+        "market_name": "wb",
+        "sku": "Гдсдет/3 л",
+        "url": "https://www.wildberries.ru/catalog/182962450/detail.aspx",
+        "stock": 0,
+        "price": 546,
+        "nmID": "182962450",
+        "barcodes": [
+            "4673756160531"
+        ]
+    },
+    "1201": {
+        "market_name": "wb",
+        "sku": "Гдсорх/3л",
+        "url": "https://www.wildberries.ru/catalog/190426479/detail.aspx",
+        "stock": 0,
+        "price": 546,
+        "nmID": "190426479",
+        "barcodes": [
+            "4673756160968"
+        ]
+    },
+    "1202": {
+        "market_name": "wb",
+        "sku": "Гдсорх/5л",
+        "url": "https://www.wildberries.ru/catalog/190426480/detail.aspx",
+        "stock": 0,
+        "price": 607,
+        "nmID": "190426480",
+        "barcodes": [
+            "4673756160975"
+        ]
+    },
+    "1199": {
+        "market_name": "wb",
+        "sku": "Гдсморсв/5л",
+        "url": "https://www.wildberries.ru/catalog/190426483/detail.aspx",
+        "stock": 0,
+        "price": 654,
+        "nmID": "190426483",
+        "barcodes": [
+            "4673756160913"
+        ]
+    },
+    "1200": {
+        "market_name": "wb",
+        "sku": "Гдсорх/1,5л",
+        "url": "https://www.wildberries.ru/catalog/190426478/detail.aspx",
+        "stock": 0,
+        "price": 419,
+        "nmID": "190426478",
+        "barcodes": [
+            "4673756160951"
+        ]
+    },
+    "1196": {
+        "market_name": "wb",
+        "sku": "Гдсминм/1.5л",
+        "url": "https://www.wildberries.ru/catalog/182991400/detail.aspx",
+        "stock": 0,
+        "price": 419,
+        "nmID": "182991400",
+        "barcodes": [
+            "4673756160432"
+        ]
+    },
+    "1197": {
+        "market_name": "wb",
+        "sku": "Гдсморсв/1,5л",
+        "url": "https://www.wildberries.ru/catalog/190426481/detail.aspx",
+        "stock": 0,
+        "price": 419,
+        "nmID": "190426481",
+        "barcodes": [
+            "4673756160890"
+        ]
+    },
+    "1214": {
+        "market_name": "wb",
+        "sku": "Гдсэко/5л",
+        "url": "https://www.wildberries.ru/catalog/191203252/detail.aspx",
+        "stock": 0,
+        "price": 1040,
+        "nmID": "191203252",
+        "barcodes": [
+            "4673756161002"
+        ]
+    },
+    "1215": {
+        "market_name": "wb",
+        "sku": "Дкдб/1.5л",
+        "url": "https://www.wildberries.ru/catalog/184479611/detail.aspx",
+        "stock": 0,
+        "price": 482,
+        "nmID": "184479611",
+        "barcodes": [
+            "4673756160319"
+        ]
+    },
+    "1212": {
+        "market_name": "wb",
+        "sku": "Гдсэко/1,5л",
+        "url": "https://www.wildberries.ru/catalog/191203250/detail.aspx",
+        "stock": 0,
+        "price": 521,
+        "nmID": "191203250",
+        "barcodes": [
+            "4673756160982"
+        ]
+    },
+    "1213": {
+        "market_name": "wb",
+        "sku": "Гдсэко/3л",
+        "url": "https://www.wildberries.ru/catalog/191203251/detail.aspx",
+        "stock": 0,
+        "price": 781,
+        "nmID": "191203251",
+        "barcodes": [
+            "4673756160999"
+        ]
+    },
+    "1210": {
+        "market_name": "wb",
+        "sku": "Гдсцбсир/3л",
+        "url": "https://www.wildberries.ru/catalog/182958189/detail.aspx",
+        "stock": 0,
+        "price": 546,
+        "nmID": "182958189",
+        "barcodes": [
+            "4673756160470"
+        ]
+    },
+    "1211": {
+        "market_name": "wb",
+        "sku": "Гдсцбс/5л",
+        "url": "https://www.wildberries.ru/catalog/182958190/detail.aspx",
+        "stock": 0,
+        "price": 654,
+        "nmID": "182958190",
+        "barcodes": [
+            "4673756160487"
+        ]
+    },
+    "1207": {
+        "market_name": "wb",
+        "sku": "Гдсдетббг/3л",
+        "url": "https://www.wildberries.ru/catalog/182962453/detail.aspx",
+        "stock": 0,
+        "price": 546,
+        "nmID": "182962453",
+        "barcodes": [
+            "4673756160562"
+        ]
+    },
+    "1208": {
+        "market_name": "wb",
+        "sku": "Гдсдетббг/5л",
+        "url": "https://www.wildberries.ru/catalog/182962454/detail.aspx",
+        "stock": 0,
+        "price": 692,
+        "nmID": "182962454",
+        "barcodes": [
+            "4673756160579"
+        ]
+    },
+    "1222": {
+        "market_name": "wb",
+        "sku": "Жмал/3л",
+        "url": "https://www.wildberries.ru/catalog/183012676/detail.aspx",
+        "stock": 0,
+        "price": 521,
+        "nmID": "183012676",
+        "barcodes": [
+            "4673756160623"
+        ]
+    },
+    "1220": {
+        "market_name": "wb",
+        "sku": "Деткм/5л",
+        "url": "https://www.wildberries.ru/catalog/183024716/detail.aspx",
+        "stock": 0,
+        "price": 976,
+        "nmID": "183024716",
+        "barcodes": [
+            "4673756160883"
+        ]
+    },
+    "1221": {
+        "market_name": "wb",
+        "sku": "Жмал/0.5л",
+        "url": "None",
+        "stock": 0,
+        "price": 0.0
+    },
+    "1218": {
+        "market_name": "wb",
+        "sku": "Деткм/0.5л",
+        "url": "None",
+        "stock": 0,
+        "price": 0.0
+    },
+    "1219": {
+        "market_name": "wb",
+        "sku": "Деткм/3л",
+        "url": "https://www.wildberries.ru/catalog/183023744/detail.aspx",
+        "stock": 0,
+        "price": 715,
+        "nmID": "183023744",
+        "barcodes": [
+            "4673756160876"
+        ]
+    },
+    "1217": {
+        "market_name": "wb",
+        "sku": "Дкдб/5л",
+        "url": "https://www.wildberries.ru/catalog/183027938/detail.aspx",
+        "stock": 0,
+        "price": 690,
+        "nmID": "183027938",
+        "barcodes": [
+            "4673756160333"
+        ]
+    },
+    "1216": {
+        "market_name": "wb",
+        "sku": "Дкдб/3л",
+        "url": "https://www.wildberries.ru/catalog/183027375/detail.aspx",
+        "stock": 0,
+        "price": 546,
+        "nmID": "183027375",
+        "barcodes": [
+            "4673756160326"
+        ]
+    },
+    "1235": {
+        "market_name": "wb",
+        "sku": "Жмдын/5л",
+        "url": "https://www.wildberries.ru/catalog/183012680/detail.aspx",
+        "stock": 0,
+        "price": 617,
+        "nmID": "183012680",
+        "barcodes": [
+            "4673756160661"
+        ]
+    },
+    "1233": {
+        "market_name": "wb",
+        "sku": "Жмдын/0.5л",
+        "url": "None",
+        "stock": 0,
+        "price": 0.0
+    },
+    "1234": {
+        "market_name": "wb",
+        "sku": "Жмдын/3л",
+        "url": "https://www.wildberries.ru/catalog/183012679/detail.aspx",
+        "stock": 0,
+        "price": 521,
+        "nmID": "183012679",
+        "barcodes": [
+            "4673756160654"
+        ]
+    },
+    "1231": {
+        "market_name": "wb",
+        "sku": "Жмббг/3л",
+        "url": "None",
+        "stock": 0,
+        "price": 0.0
+    },
+    "1232": {
+        "market_name": "wb",
+        "sku": "Жмббг/5л",
+        "url": "None",
+        "stock": 0,
+        "price": 0.0
+    },
+    "1230": {
+        "market_name": "wb",
+        "sku": "Жмббг/0.5л",
+        "url": "None",
+        "stock": 0,
+        "price": 0.0
+    },
+    "1228": {
+        "market_name": "wb",
+        "sku": "Жманбаклим/3л",
+        "url": "https://www.wildberries.ru/catalog/182945365/detail.aspx",
+        "stock": 0,
+        "price": 534,
+        "nmID": "182945365",
+        "barcodes": [
+            "4673756160838"
+        ]
+    },
+    "1229": {
+        "market_name": "wb",
+        "sku": "Жманбаклим/5л",
+        "url": "https://www.wildberries.ru/catalog/182945366/detail.aspx",
+        "stock": 0,
+        "price": 617,
+        "nmID": "182945366",
+        "barcodes": [
+            "4673756160845"
+        ]
+    },
+    "1226": {
+        "market_name": "wb",
+        "sku": "Жманбакалв/5л",
+        "url": "https://www.wildberries.ru/catalog/182945363/detail.aspx",
+        "stock": 0,
+        "price": 617,
+        "nmID": "182945363",
+        "barcodes": [
+            "4673756160814"
+        ]
+    },
+    "1227": {
+        "market_name": "wb",
+        "sku": "Жманбаклим/0.5л",
+        "url": "None",
+        "stock": 0,
+        "price": 0.0
+    },
+    "1224": {
+        "market_name": "wb",
+        "sku": "Жманбакалв/0.5л",
+        "url": "None",
+        "stock": 0,
+        "price": 0.0
+    },
+    "1225": {
+        "market_name": "wb",
+        "sku": "Жманбакалв/3л",
+        "url": "https://www.wildberries.ru/catalog/182945364/detail.aspx",
+        "stock": 0,
+        "price": 534,
+        "nmID": "182945364",
+        "barcodes": [
+            "4673756160807"
+        ]
+    },
+    "1223": {
+        "market_name": "wb",
+        "sku": "Жмал/5л",
+        "url": "https://www.wildberries.ru/catalog/183012677/detail.aspx",
+        "stock": 0,
+        "price": 617,
+        "nmID": "183012677",
+        "barcodes": [
+            "4673756160630"
+        ]
+    },
+    "1237": {
+        "market_name": "wb",
+        "sku": "Жмлав/3л",
+        "url": "https://www.wildberries.ru/catalog/183012685/detail.aspx",
+        "stock": 0,
+        "price": 521,
+        "nmID": "183012685",
+        "barcodes": [
+            "4673756160715"
+        ]
+    },
+    "1236": {
+        "market_name": "wb",
+        "sku": "Жмлав/0.5л",
+        "url": "None",
+        "stock": 0,
+        "price": 0.0
+    },
+    "1249": {
+        "market_name": "wb",
+        "sku": "Кдбярл/1.5л",
+        "url": "https://www.wildberries.ru/catalog/182997226/detail.aspx",
+        "stock": 0,
+        "price": 416,
+        "nmID": "182997226",
+        "barcodes": [
+            "4673756160227"
+        ]
+    },
+    "1247": {
+        "market_name": "wb",
+        "sku": "Кдбморс/1.5л",
+        "url": "https://www.wildberries.ru/catalog/182997230/detail.aspx",
+        "stock": 0,
+        "price": 416,
+        "nmID": "182997230",
+        "barcodes": [
+            "4673756160258"
+        ]
+    },
+    "1248": {
+        "market_name": "wb",
+        "sku": "Кдбор/1.5л",
+        "url": "https://www.wildberries.ru/catalog/182997223/detail.aspx",
+        "stock": 0,
+        "price": 416,
+        "nmID": "182997223",
+        "barcodes": [
+            "4673756160197"
+        ]
+    },
+    "1245": {
+        "market_name": "wb",
+        "sku": "Кисоч/1",
+        "url": "https://www.wildberries.ru/catalog/183151083/detail.aspx",
+        "stock": 0,
+        "price": 350,
+        "nmID": "183151083",
+        "barcodes": [
+            "4673756160005"
+        ]
+    },
+    "1246": {
+        "market_name": "wb",
+        "sku": "Кдбмагц/1.5л",
+        "url": "https://www.wildberries.ru/catalog/182998495/detail.aspx",
+        "stock": 0,
+        "price": 416,
+        "nmID": "182998495",
+        "barcodes": [
+            "4673756160289"
+        ]
+    },
+    "1243": {
+        "market_name": "wb",
+        "sku": "Жмпрем/3",
+        "url": "https://www.wildberries.ru/catalog/185501085/detail.aspx",
+        "stock": 0,
+        "price": 572,
+        "nmID": "185501085",
+        "barcodes": [
+            "4673756160777"
+        ]
+    },
+    "1244": {
+        "market_name": "wb",
+        "sku": "Жмпрем/5",
+        "url": "https://www.wildberries.ru/catalog/185501086/detail.aspx",
+        "stock": 0,
+        "price": 755,
+        "nmID": "185501086",
+        "barcodes": [
+            "4673756160784"
+        ]
+    },
+    "1241": {
+        "market_name": "wb",
+        "sku": "Жмлим/5л",
+        "url": "None",
+        "stock": 0,
+        "price": 0.0
+    },
+    "1242": {
+        "market_name": "wb",
+        "sku": "Жмпрем/0,5",
+        "url": "https://www.wildberries.ru/catalog/185501084/detail.aspx",
+        "stock": 0,
+        "price": 288,
+        "nmID": "185501084",
+        "barcodes": [
+            "4673756160760"
+        ]
+    },
+    "1240": {
+        "market_name": "wb",
+        "sku": "Жмлим/3л",
+        "url": "None",
+        "stock": 0,
+        "price": 0.0
+    },
+    "1238": {
+        "market_name": "wb",
+        "sku": "Жмлав/5л",
+        "url": "https://www.wildberries.ru/catalog/183012686/detail.aspx",
+        "stock": 0,
+        "price": 617,
+        "nmID": "183012686",
+        "barcodes": [
+            "4673756160722"
+        ]
+    },
+    "1255": {
+        "market_name": "wb",
+        "sku": "Кдбморс/5л",
+        "url": "https://www.wildberries.ru/catalog/182997232/detail.aspx",
+        "stock": 0,
+        "price": 645,
+        "nmID": "182997232",
+        "barcodes": [
+            "4673756160272"
+        ]
+    },
+    "1253": {
+        "market_name": "wb",
+        "sku": "Кдбярл/3л",
+        "url": "https://www.wildberries.ru/catalog/182997228/detail.aspx",
+        "stock": 0,
+        "price": 546,
+        "nmID": "182997228",
+        "barcodes": [
+            "4673756160234"
+        ]
+    },
+    "1254": {
+        "market_name": "wb",
+        "sku": "Кдбмагц/5л",
+        "url": "https://www.wildberries.ru/catalog/182998497/detail.aspx",
+        "stock": 0,
+        "price": 645,
+        "nmID": "182998497",
+        "barcodes": [
+            "4673756160302"
+        ]
+    },
+    "1251": {
+        "market_name": "wb",
+        "sku": "Кдбморс/3л",
+        "url": "https://www.wildberries.ru/catalog/182997231/detail.aspx",
+        "stock": 0,
+        "price": 546,
+        "nmID": "182997231",
+        "barcodes": [
+            "4673756160265"
+        ]
+    },
+    "1252": {
+        "market_name": "wb",
+        "sku": "Кдбор/3л",
+        "url": "https://www.wildberries.ru/catalog/182997224/detail.aspx",
+        "stock": 0,
+        "price": 546,
+        "nmID": "182997224",
+        "barcodes": [
+            "4673756160203"
+        ]
+    },
+    "1250": {
+        "market_name": "wb",
+        "sku": "Кдбмагц/3л",
+        "url": "https://www.wildberries.ru/catalog/182998496/detail.aspx",
+        "stock": 0,
+        "price": 546,
+        "nmID": "182998496",
+        "barcodes": [
+            "4673756160296"
+        ]
+    },
+    "1263": {
+        "market_name": "wb",
+        "sku": "Гдпарб/3л",
+        "url": "https://www.wildberries.ru/catalog/183021520/detail.aspx",
+        "stock": 0,
+        "price": 521,
+        "nmID": "183021520",
+        "barcodes": [
+            "4673756160111"
+        ]
+    },
+    "1262": {
+        "market_name": "wb",
+        "sku": "Гдпалвэ/3л",
+        "url": "https://www.wildberries.ru/catalog/183021513/detail.aspx",
+        "stock": 0,
+        "price": 521,
+        "nmID": "183021513",
+        "barcodes": [
+            "4673756160050"
+        ]
+    },
+    "1259": {
+        "market_name": "wb",
+        "sku": "Гдпар/1л",
+        "url": "https://www.wildberries.ru/catalog/183021519/detail.aspx",
+        "stock": 0,
+        "price": 300,
+        "nmID": "183021519",
+        "barcodes": [
+            "4673756160104"
+        ]
+    },
+    "1260": {
+        "market_name": "wb",
+        "sku": "Гдпббг/1л",
+        "url": "https://www.wildberries.ru/catalog/183021515/detail.aspx",
+        "stock": 0,
+        "price": 300,
+        "nmID": "183021515",
+        "barcodes": [
+            "4673756160074"
+        ]
+    },
+    "1257": {
+        "market_name": "wb",
+        "sku": "Кдбярл/5л",
+        "url": "https://www.wildberries.ru/catalog/182997229/detail.aspx",
+        "stock": 0,
+        "price": 645,
+        "nmID": "182997229",
+        "barcodes": [
+            "4673756160241"
+        ]
+    },
+    "1258": {
+        "market_name": "wb",
+        "sku": "Гдпалв/1л",
+        "url": "https://www.wildberries.ru/catalog/183021512/detail.aspx",
+        "stock": 0,
+        "price": 300,
+        "nmID": "183021512",
+        "barcodes": [
+            "4673756160043"
+        ]
+    },
+    "1256": {
+        "market_name": "wb",
+        "sku": "Кдбор/5л",
+        "url": "https://www.wildberries.ru/catalog/182997225/detail.aspx",
+        "stock": 0,
+        "price": 645,
+        "nmID": "182997225",
+        "barcodes": [
+            "4673756160210"
+        ]
+    },
+    "1269": {
+        "market_name": "wb",
+        "sku": "Гдпалв/5л",
+        "url": "https://www.wildberries.ru/catalog/183021514/detail.aspx",
+        "stock": 0,
+        "price": 583,
+        "nmID": "183021514",
+        "barcodes": [
+            "4673756160067"
+        ]
+    },
+    "1270": {
+        "market_name": "wb",
+        "sku": "Гдслав/1,5л",
+        "url": "None",
+        "stock": 0,
+        "price": 0.0
+    },
+    "1267": {
+        "market_name": "wb",
+        "sku": "Гдпббг/5л",
+        "url": "https://www.wildberries.ru/catalog/183021518/detail.aspx",
+        "stock": 0,
+        "price": 653,
+        "nmID": "183021518",
+        "barcodes": [
+            "4673756160098"
+        ]
+    },
+    "1268": {
+        "market_name": "wb",
+        "sku": "Гдплим/5л",
+        "url": "https://www.wildberries.ru/catalog/183019189/detail.aspx",
+        "stock": 0,
+        "price": 630,
+        "nmID": "183019189",
+        "barcodes": [
+            "4673756160036"
+        ]
+    },
+    "1265": {
+        "market_name": "wb",
+        "sku": "Гдплимо/3л",
+        "url": "https://www.wildberries.ru/catalog/183019188/detail.aspx",
+        "stock": 0,
+        "price": 521,
+        "nmID": "183019188",
+        "barcodes": [
+            "4673756160029"
+        ]
+    },
+    "1266": {
+        "market_name": "wb",
+        "sku": "Гдпар/5л",
+        "url": "https://www.wildberries.ru/catalog/183021521/detail.aspx",
+        "stock": 0,
+        "price": 653,
+        "nmID": "183021521",
+        "barcodes": [
+            "4673756160128"
+        ]
+    },
+    "1187": {
+        "market_name": "wb",
+        "sku": "Гдсдын/5л",
+        "url": "https://www.wildberries.ru/catalog/182991392/detail.aspx",
+        "stock": 0,
+        "price": 654,
+        "nmID": "182991392",
+        "barcodes": [
+            "4673756160364"
+        ]
+    },
+    "1264": {
+        "market_name": "wb",
+        "sku": "Гдпбблг/3л",
+        "url": "https://www.wildberries.ru/catalog/183021517/detail.aspx",
+        "stock": 0,
+        "price": 521,
+        "nmID": "183021517",
+        "barcodes": [
+            "4673756160081"
+        ]
+    },
+    "1185": {
+        "market_name": "wb",
+        "sku": "Гдсдын/1.5л",
+        "url": "https://www.wildberries.ru/catalog/183150544/detail.aspx",
+        "stock": 0,
+        "price": 419,
+        "nmID": "183150544",
+        "barcodes": [
+            "4673756160340"
+        ]
+    },
+    "1186": {
+        "market_name": "wb",
+        "sku": "Гдсдын/3л",
+        "url": "https://www.wildberries.ru/catalog/182993153/detail.aspx",
+        "stock": 0,
+        "price": 546,
+        "nmID": "182993153",
+        "barcodes": [
+            "4673756160357"
+        ]
+    },
+    "1183": {
+        "market_name": "wb",
+        "sku": "Гдсббг/3л",
+        "url": "None",
+        "stock": 0,
+        "price": 0.0
+    },
+    "1184": {
+        "market_name": "wb",
+        "sku": "Гдсббг/5л",
+        "url": "None",
+        "stock": 0,
+        "price": 0.0
+    },
+    "1181": {
+        "market_name": "wb",
+        "sku": "Гдсбелбор/5л",
+        "url": "https://www.wildberries.ru/catalog/182953283/detail.aspx",
+        "stock": 0,
+        "price": 584,
+        "nmID": "182953283",
+        "barcodes": [
+            "4673756160517"
+        ]
+    },
+    "1182": {
+        "market_name": "wb",
+        "sku": "Гдсббг/1.5л",
+        "url": "https://www.wildberries.ru/catalog/182991399/detail.aspx",
+        "stock": 0,
+        "price": 419,
+        "nmID": "182991399",
+        "barcodes": [
+            "4673756160401"
+        ]
+    },
+    "1179": {
+        "market_name": "wb",
+        "sku": "Гдсбелбор/1,5л",
+        "url": "None",
+        "stock": 0,
+        "price": 0.0
+    },
+    "1180": {
+        "market_name": "wb",
+        "sku": "Гдсбелбор/3л",
+        "url": "https://www.wildberries.ru/catalog/182953284/detail.aspx",
+        "stock": 0,
+        "price": 560,
+        "nmID": "182953284",
+        "barcodes": [
+            "4673756160500"
+        ]
+    },
+    "1177": {
+        "market_name": "wb",
+        "sku": "Гдпдетс/3л",
+        "url": "https://www.wildberries.ru/catalog/194459760/detail.aspx",
+        "stock": 0,
+        "price": 521,
+        "nmID": "194459760",
+        "barcodes": [
+            "4673756160142"
+        ]
+    },
+    "1178": {
+        "market_name": "wb",
+        "sku": "Гдпдетс/5л",
+        "url": "https://www.wildberries.ru/catalog/194459761/detail.aspx",
+        "stock": 0,
+        "price": 671,
+        "nmID": "194459761",
+        "barcodes": [
+            "4673756160159"
+        ]
+    },
+    "1176": {
+        "market_name": "wb",
+        "sku": "Гдпдетс/1л",
+        "url": "https://www.wildberries.ru/catalog/194459759/detail.aspx",
+        "stock": 0,
+        "price": 300,
+        "nmID": "194459759",
+        "barcodes": [
+            "4673756160135"
+        ]
+    },
+    "1195": {
+        "market_name": "wb",
+        "sku": "Гдслав/1.5 л",
+        "url": "https://www.wildberries.ru/catalog/182991398/detail.aspx",
+        "stock": 0,
+        "price": 419,
+        "nmID": "182991398",
+        "barcodes": [
+            "4673756160371"
+        ]
+    },
+    "1193": {
+        "market_name": "wb",
+        "sku": "Гдсжас/3л",
+        "url": "https://www.wildberries.ru/catalog/190426476/detail.aspx",
+        "stock": 0,
+        "price": 546,
+        "nmID": "190426476",
+        "barcodes": [
+            "4673756160937"
+        ]
+    },
+    "1194": {
+        "market_name": "wb",
+        "sku": "Гдсжас/5л",
+        "url": "https://www.wildberries.ru/catalog/190426477/detail.aspx",
+        "stock": 0,
+        "price": 607,
+        "nmID": "190426477",
+        "barcodes": [
+            "4673756160944"
+        ]
+    },
+    "1191": {
+        "market_name": "wb",
+        "sku": "Гдсминм/5л",
+        "url": "https://www.wildberries.ru/catalog/182993155/detail.aspx",
+        "stock": 0,
+        "price": 654,
+        "nmID": "182993155",
+        "barcodes": [
+            "4673756160456"
+        ]
+    },
+    "1192": {
+        "market_name": "wb",
+        "sku": "Гдсжас/1,5л",
+        "url": "https://www.wildberries.ru/catalog/190426475/detail.aspx",
+        "stock": 0,
+        "price": 419,
+        "nmID": "190426475",
+        "barcodes": [
+            "4673756160920"
+        ]
+    },
+    "1189": {
+        "market_name": "wb",
+        "sku": "Гдслав/5л",
+        "url": "https://www.wildberries.ru/catalog/182991393/detail.aspx",
+        "stock": 0,
+        "price": 654,
+        "nmID": "182991393",
+        "barcodes": [
+            "4673756160395"
+        ]
+    },
+    "1190": {
+        "market_name": "wb",
+        "sku": "Гдсминм/3л",
+        "url": "https://www.wildberries.ru/catalog/182991397/detail.aspx",
+        "stock": 0,
+        "price": 546,
+        "nmID": "182991397",
+        "barcodes": [
+            "4673756160449"
+        ]
+    },
+    "1188": {
+        "market_name": "wb",
+        "sku": "Гдслав/3л",
+        "url": "https://www.wildberries.ru/catalog/182991395/detail.aspx",
+        "stock": 0,
+        "price": 546,
+        "nmID": "182991395",
+        "barcodes": [
+            "4673756160388"
+        ]
+    },
+    "1209": {
+        "market_name": "wb",
+        "sku": "Гдсцбсир/1.5л",
+        "url": "https://www.wildberries.ru/catalog/182958188/detail.aspx",
+        "stock": 0,
+        "price": 419,
+        "nmID": "182958188",
+        "barcodes": [
+            "4673756160463"
+        ]
+    },
+    "1198": {
+        "market_name": "wb",
+        "sku": "Гдсморсв/3л",
+        "url": "https://www.wildberries.ru/catalog/190426482/detail.aspx",
+        "stock": 0,
+        "price": 546,
+        "nmID": "190426482",
+        "barcodes": [
+            "4673756160906"
+        ]
+    }
+}

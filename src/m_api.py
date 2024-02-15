@@ -1,151 +1,148 @@
 import os
 import time
-
-from dotenv import load_dotenv
 from concurrent.futures import ThreadPoolExecutor 
 
-from modules.woo import get_products_count, get_products, update_product, batch_update_product
-from modules.markets.ozon import ozon_request_product_info
-from modules.markets.wb import *
+from dotenv import load_dotenv
+load_dotenv()
+
+
+from modules.woo import get_products, update_product, batch_update_product
+from modules.markets.ozon import market_ozon
+from modules.markets.wb import market_wb
 from modules.markets.ym import *
 
 from modules.logger import logger
-
-#WB
-wb_token = str(os.getenv('wb_token'))
 
 markets_list = ("ozon", "wb", "ym", "mm", "vk")
 #cleanup_terms()
 
 def main():
     # Get products from WooCommerce API
-    count = get_products_count()
     page = 1
-    if count:
-        if count > 100:
-            products = None
-            response_status_code = None
-            woo_response = get_products(page)
-            if woo_response[0]:
-                products = woo_response[0]
-            if woo_response[1]:
-                response_status_code = woo_response[1]
-            if page in woo_response:
-                page = woo_response["page"]
-            if response_status_code != 200:
-                logger.warning(f"Products retrieval failed...{response_status_code}")
+    products = []
+    updated_products = []
+    count = 0
+    while True:
+        response_status_code = None
+        woo_response = get_products(page)
+        if woo_response[0]:
+            fetched_products = woo_response[0]
+            products.extend(fetched_products)
+            logger.info(f"Acquired {len(products)} products")
+        if woo_response[1]:
+            response_status_code = woo_response[1]
+        if page in woo_response:
+            page = woo_response[2]
+        if response_status_code != 200:
+            logger.warning(f"Products retrieval failed...{response_status_code}")
+        if woo_response[0] == []:
+            break
         else:
-            products = None
-            response_status_code = None
-            woo_response = get_products()
-            if woo_response[0]:
-                products = woo_response[0]
-            if woo_response[1]:
-                response_status_code = woo_response[1]
-            if page in woo_response:
-                page = woo_response["page"]
-            if response_status_code != 200:
-                logger.ERROR(f"Products retrieval failed...{response_status_code}")
-        logger.info(f"Number of retrieved products: {len(products)}")
-    
-    list_of_products = []
-    if count == None:
+            page += 1
+            
+        
+    if count != len(products) or count is None:
         count = len(products)
+
+    #Fetch required product info
+    # Initialize empty dictionaries
+    ozon, wb, ym, mm = {}, {}, {}, {}
+
+    # Create a list to store non-empty dictionaries
+    marketplace_data_list = []
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        futures = [executor.submit(market_ozon, products), executor.submit(market_wb, products)]
+
+        for future, marketplace_name in zip(futures, ["ozon", "wb"]):
+            try:
+                # Wait for the results
+                marketplace_data = future.result()
+
+                # Only add to the list if the data is not empty
+                if marketplace_data:
+                    marketplace_data_list.append({marketplace_name: marketplace_data})
+
+            except Exception as e:
+                logger.critical(f"Error in {marketplace_name: marketplace_name}: {e}")
+
     while count > 0:
         # Loop through each product
-        products_modified = 0
         for product in products:
-            market_urls = 0
             product_modified = 0
-            sku = product.get("sku")
-            if sku == "None":
-                logger.error(f"SKU for product {product.get('id')} is not set")
-                break
-            
-            #Fetch required product info
-            ozon, wb, ym, mm = {}, {}, {}, {}
-            with ThreadPoolExecutor(max_workers=4) as executor:
-                # Submit multiple functions concurrently for the current product
-                future_ozon = executor.submit(ozon_request_product_info, sku)
-                #future_wb = executor.submit(sku, ozon_client, ozon_key)
-                #future_ym = executor.submit(sku, ozon_client, ozon_key)
-                #future_mm = executor.submit(sku, ozon_client, ozon_key)
-                try:
-                    # Wait for the results
-                    ozon = future_ozon.result()
-                    #wb = future_wb.result()
-                    #ym = future_ym.result()
-                    #mm = future_mm.result()
-                except Exception as e:
-                    logger.critical(f"futures error = {e}")
-            time.sleep(1)
-            #ozon = ozon_request_product_info(sku, ozon_client, ozon_key)
-            if ozon or wb or ym or mm:
-                stock = 0
-                if ozon:
-                    stock += int(ozon["stock"])
-                if wb:
-                    stock += int(wb["stock"])                        
-                if ym:
-                    stock += int(ym["stock"])
-                if mm:
-                    stock += int(mm["stock"])
-                                
+            market_urls = 0
+            stock = 0
+            price = 0
+            for marketplace_data in marketplace_data_list:
+                if marketplace_data:
+                    market_name = list(marketplace_data.keys())[0]
+                    market_data = marketplace_data.get(market_name, {})
+                    if market_data and product["id"] in market_data:
+                        if int(market_data[product["id"]]["stock"]):
+                            stock += int(market_data[product["id"]]["stock"])
+                            
+                        if price > float(market_data[product["id"]]["price"]):
+                            price = float(market_data[product["id"]]["price"])
+                            
+            if product["stock_quantity"] != stock:
                 product["stock_quantity"] = stock
-                price = 0
-                num_price_sources  = 0
-                if ozon:
-                    price += float(ozon["price"])
-                    num_price_sources += 1
-                if wb:
-                    price += float(wb["price"])
-                    num_price_sources += 1
-                if ym:
-                    price += float(ym["price"])
-                    num_price_sources += 1
-                if mm:
-                    price += float(mm["price"])
-                    num_price_sources += 1
-                if num_price_sources and price != 0:
-                    product["price"] = price / num_price_sources
-                else:
-                    product["price"] = 0
-                product["manage_stock"] = "true"
-                if product["stock_quantity"] != "0":
-                    product["stock_status"] = "instock"
+                product_modified += 1
+                
+            if product["stock_quantity"] != "0":
+                product["stock_status"] = "instock"
+            else:
+                product["stock_status"] = "outofstock"
             
-            #Updating product meta_data for markets            
-            if ozon or wb or ym or mm:
-                product_meta = product["meta_data"]
-                if ozon:
-                    logger.info(f"updating meta for ozon on {product['id']}, with SKU: {product['sku']}")
-                    #ozon["url"] not in (item.get("url") for item in product_meta):
+            if product["price"] != str(price):
+                product["price"] = price
+                product["regular_price"] = price
+                product_modified += 1
+
+
+                
+            product_meta = product.get("meta_data")
+            #Updating product meta_data for markets
+            for marketplace_data in marketplace_data_list:
+                if marketplace_data:
+                    market_name = list(marketplace_data.keys())[0]
+                    market_name_url = market_name + "_url"
+                    market_data = marketplace_data.get(market_name, {})
+                    logger.debug(f"updating meta for {market_name} on {product['id']}, with SKU: {product['sku']}")
+                    found_bool = False
                     for item in product_meta:
-                        if item["key"] == "ozon_url":
-                            if int(ozon["stock"]) > 0:
-                                if item["value"] != ozon["url"]:
-                                    item["value"] = ozon["url"]
-                                    market_urls += 1
+                        if str(item["key"]) == market_name_url:
+                            if int(market_data[product["id"]]["stock"]) > 0 and str(market_data[product["id"]]["url"]) not in ["None", "Unavailable"]:
+                                market_urls += 1
+                                if item["value"] != market_data[product["id"]]["url"]:
+                                    item["value"] = market_data[product["id"]]["url"]
+                                    product_modified += 1 
                             else:
-                                item["value"] = ozon["url"] #"Unavailable"
+                                item["value"] = "Unavailable"
+                                product_modified += 1 
                             found_bool = True
-                        else:
-                            found_bool = False
+                            
                     if found_bool == False:
-                        new_item = {"key": "ozon_url",
-                                "value": ozon["url"]}
-                        product_meta.append(new_item)
+                        #print(product["id"])
+                        #print(ozon[product["id"]]["url"])
+                        product_meta.append({
+                                        "key": market_name_url,
+                                        "value": market_data[product["id"]]["url"]
+                                        })
+                        logger.critical(f"adding new meta_data to product{product['id']}")
                         market_urls += 1
-                    product_modified += 1                  
+                        product_modified += 1 
                     
             # Check if it's ready to publish
+            keys_to_check = {"ozon_url", "wb_url", "ym_url", "mm_url", "vk_url"}
+            keys = [any(key in d["key"] for key in keys_to_check) for d in product_meta]
+            product["manage_stock"] = "true"
             if (
                 market_urls > 0
-                and product.get('sku') != ""
-                and product.get('images') != ""
-                and product.get('description') != ""
-                and product.get('stock_quantity') not in ["", "0"]
-                and market_urls != 0
+                and product['sku'] != ""
+                #and product['images'] != []
+                #and product['description'] != ""
+                and product['stock_quantity'] not in ["", "0"]
+                and int(product['stock_quantity']) > 0
+                and any(keys)
             ):
                 if product['status'] != "publish":
                     product['status'] = 'publish'
@@ -154,39 +151,30 @@ def main():
                 if product['status'] != "draft":
                     product['status'] = 'draft'
                     product_modified += 1
-
             
             # Add changed product to a new list
             if product_modified:
-                list_of_products.append(product)
+                updated_products.append(product)
             if count != 0:
                 count -= 1
                 logger.debug(f"{count}...products remaining")
-            else:
-                break
         
-        # Move to the next page
-        if page != 1:
-            page += 1
-            products, response_status_code, page = get_products(page)
-            if response_status_code != 200:
-                break
-            logger.debug(f"Getting page {page}")
-    retry = 0
-    while len(list_of_products) != 0 and retry != 0:
-        if len(list_of_products) < 100:
-            status_code = batch_update_product(list_of_products)
-            if status_code == 200:
-                short_list_of_products = list_of_products[:]
-                list_of_products = short_list_of_products
-            else:
-                retry = 3
-                retry -= 1
+    retry = 3
+    logger.info(f"Products to update: {len(updated_products)}")
+    while len(updated_products) or retry:
+        short_list_of_products = updated_products[:25]
+        status_code = batch_update_product(short_list_of_products)
+        
+        if status_code == 200:
+            updated_products = updated_products[25:]
         else:
-            short_list_of_products = list_of_products[:10]
-            list_of_products = short_list_of_products
-            batch_update_product(short_list_of_products)
+            retry -= 1
+            
+        if retry == 0:
+            break
+        logger.info(f"Left to update: {len(updated_products)}")
     logger.info("Products processing finished")
+
             
             
 if __name__ == "__main__":

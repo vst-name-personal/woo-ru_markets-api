@@ -1,0 +1,24 @@
+.wpclv-term {
+    border-radius: 5% !important;
+    background-color: white !important;
+    /*
+    border: 1px solid rgb(221, 221, 221); 
+    padding: 3px;
+    height: 42px;
+    width: 42px;
+    margin: 0 3px 6px 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-family: Lato, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 40px;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+    */
+}
+.wpclv-term a {
+    background-color: white !important;
+}
