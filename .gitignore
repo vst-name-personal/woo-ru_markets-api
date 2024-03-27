@@ -1,6 +1,6 @@
 #project specific
 .vscode
-
+.env
 # Python
 __pycache__/
 *.pyc
