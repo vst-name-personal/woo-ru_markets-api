@@ -1,0 +1,119 @@
+.market_btns {
+margin: 2% 0%;	
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 2% 1%;
+grid-auto-flow: row;
+grid-template-rows: repeat(auto-fit, minmax(8vh, auto));
+justify-content: start;
+align-content: stretch;
+justify-items: start;
+align-items: stretch;
+place-content: center;
+word-wrap: break-word;
+grid-template-areas:
+"wb_btn ozon_btn"
+"ym_btn mm_btn"
+"vk_btn tmp_btn";
+font-size: x-small;
+min-height: 8vh;
+}
+.market_btns div {
+	opacity: 0;
+	animation: fade-in 1s ease-in-out forwards;
+	}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+@media (max-width: 768px) {
+	.market_btns {
+		grid-template-columns: repeat(1, 1fr);
+		grid-template-rows: repeat(auto-fit, minmax(8vh, auto));
+		grid-template-areas:
+		"wb_url_btn "
+		"ozon_url_btn "
+		"ym_url_btn "
+		"mm_url_btn "
+		"vk_url_btn "
+		"tmp_url_btn ";
+	}
+}
+.wb_url_btn,
+.ozon_url_btn,
+.ym_url_btn,
+.mm_url_btn,
+.vk_url_btn,
+.tmp_url_btn {
+	display: flex;
+	flex-basis: auto;
+	flex-flow: row;
+	flex-wrap: nowrap;
+	max-height: fit-content;
+	width: 95%;
+	padding: 0.2% 1%;
+	position: relative;
+	border-radius: 10px 20px;
+}
+.market_btns img {
+	z-index: 1;
+	margin: auto;
+	margin-right: 10px;
+	margin-left: 0px;
+	height: 90%;
+	width: 20%;
+}
+.market_btns span {
+	z-index: 1;
+	text-align: left;
+	margin: auto;
+	width: 80%;
+	font-size: medium;
+	font-weight: 900;
+	color: white;
+}
+.wb_url_btn_visible {
+	background: linear-gradient(90deg, #c610a9 0%, #7513c0 100%);
+	opacity: 0.9;
+	backdrop-filter: blur(45px);
+}
+.ozon_url_btn_visible {
+	background: #015AFE;
+	opacity: 0.9;
+	backdrop-filter: blur(45px);
+}
+.ym_url_btn_visible {
+	background: #FDD31C;
+	opacity: 0.9;
+	backdrop-filter: blur(45px);
+}
+.mm_url_btn_visible {
+	background: #8654CD;
+	opacity: 0.9;
+	backdrop-filter: blur(45px);
+}
+.vk_url_btn_visible {
+	background: #8654CD;
+	opacity: 0.9;
+	backdrop-filter: blur(45px);
+}
+.tmp_url_btn_visible {
+	background: #8654CD;
+	opacity: 0.9;
+	backdrop-filter: blur(45px);
+}
+.market_btns-text {
+font-size: medium;
+line-height:normal;
+}
+.warning-text {
+	font-size: small;
+}
+.category-link {
+	font-weight: bold;
+}

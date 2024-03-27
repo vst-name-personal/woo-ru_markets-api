@@ -1,0 +1,64 @@
+.acf-group {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    margin-bottom: 5%;
+    border: 1px solid hsla(0, 0%, 60%, 0.05);
+    padding: 1%;
+    border-radius: 1%;
+}
+
+.acf-group-title {
+    font-size: 2em !important;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.acf-row {
+    display: grid;
+    grid-template-columns: auto 60%;
+    /* Two columns - one for key, one for value */
+    grid-gap: 10px;
+    word-break: break-word; /* Break words if they overflow */
+    white-space: normal; /* Allow text to wrap within the row */
+    background-color: hsla(120, 100%, 41%, 0.025);
+    /* Default background color for rows */
+}
+
+.acf-row:nth-child(even) {
+    background-color: hsla(198, 100%, 45%, 0.04);
+    /* Alternating background color for even rows */
+}
+
+.acf-key {
+    font-weight: bold;
+    margin-right: 5%;
+    max-width: 60%;
+    /*white-space: wrap;
+    /* Adjust the max-width based on your design */
+}
+
+/* .acf-value {
+} */
+
+@media (max-width: 768px) {
+    .acf-group {
+        grid-template-columns: 1fr;
+        /* Adjust for single column on smaller screens */
+    }
+
+    .acf-row {
+        grid-template-columns: 1fr;
+        /* Adjust for single column on smaller screens
+        white-space: normal;
+        /* Reset white-space for smaller screens */
+    }
+
+    .acf-key {
+        margin-right: 0;
+        /* Remove right margin on smaller screens */
+        max-width: none;
+        /* Reset max-width for smaller screens */
+    }
+}

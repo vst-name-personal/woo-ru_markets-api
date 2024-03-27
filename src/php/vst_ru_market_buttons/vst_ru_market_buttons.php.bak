@@ -1,0 +1,114 @@
+<?php
+/**
+* Plugin Name: VST RU Market buttons
+* Plugin URI: https://vst.name/
+* Description: Creates buttons to russian markets according to url attributes.
+* Version: 0.1
+* Author: VST
+* Author URI: https://vst.name/
+**/
+
+function CreateBtns() {
+    global $product;
+    if ($product->is_type('simple')) {
+        $css_contents = file_get_contents(plugin_dir_path( __FILE__ ) . 'css/stylesheet.css');
+        echo '<style>'. $css_contents .'</style>';
+        $arMarkets = ["pa_wb_url", "pa_ozon_url", "pa_ym_url", "pa_mm_url", "pa_vk_url"];
+        $market_urls = array();
+        $product_name = str_replace(' ', '_', ($product->get_name()));
+
+        foreach ($arMarkets as $Market) {
+            $market_urls[$Market] = $product->get_attribute($Market);
+        }
+        echo '<div id="market_btns" class="market_btns">';
+        foreach ($arMarkets as $Market) {
+            $market_url = $market_urls[$Market];
+            
+            if (!empty($market_url)) {
+                    // Create a new cell element for the button
+                    $type = $Market;
+                    $url = $market_urls[$Market];
+                    $type_text = "";
+                    $metrika_btn = "";
+                    $metrika_ar = array(
+                        'element.market_btns' => array(
+                            $product_name => array(
+                                'btn_type' => $type,
+                                'url_origin' => $_SERVER['REQUEST_URI'],
+                                'url_destination' => $url
+                            )
+                        )
+                    );
+            
+                    switch ($type) {
+                        case "pa_wb_url":
+                            $type_text = "WildBerries";
+                            $metrika_btn = "wb_btn_click";
+                            break;
+            
+                        case "pa_ozon_url":
+                            $type_text = "Ozon";
+                            $metrika_btn = "ozon_btn_click";
+                            break;
+            
+                        case "pa_ym_url":
+                            $type_text = "Яндекс Маркет";
+                            $metrika_btn = "ym_btn_click";
+                            break;
+            
+                        case "pa_mm_url":
+                            $type_text = "МегаМаркет";
+                            $metrika_btn = "mm_btn_click";
+                            break;
+            
+                        case "pa_vk_url":
+                            $type_text = "Вконтакте";
+                            $metrika_btn = "vk_btn_click";
+                            break;
+            
+                        case "tmp":
+                            $type_text = "To be...";
+                            $metrika_btn = "wb_btn_click";
+                            break;
+                    }
+            
+                    $newBtn = '<div class="market_btns ' . $type . '_btn ' . $type . '_btn_visible fade-in">';
+                    $newBtn .= '<a class="' . $type . '_btn" ';
+                    if (!str_starts_with($url, "https://")) {
+                        $url = "https://" . $url;
+                    }
+                    if (str_contains($url, "utm_campaign")) {
+                        $url .= '&utm_content=' . $product_name . '&utm_term=' . $type;
+                    } elseif (!str_contains($url, "utm_source")) {
+                            $url .= '?utm_source=site&utm_medium=market_btns&utm_campaign=' . $product_name . '&utm_content=' . $type;
+                        }
+
+                    $newBtn .= 'href="' . $url . '" onclick="ym(95836115, \'reachGoal\', \'' . $metrika_btn . '\', ' . json_encode($metrika_ar) . '); ym(95836115, \'reachGoal\', \'market_btn_click\', ' . json_encode($metrika_ar) . '); return true;"';
+                    $newBtn .= ' target="_blank" rel="nofollow noopener dns-prefetch">';
+                    $newBtn .= '<img class="market_btns_img" src="/wp-content/uploads/market_btns/' . $type . '.svg" alt="Наш товар в ' . $type_text . '">';
+                    $newBtn .= '<span>' . ucfirst($type_text) . '</span>';
+                    $newBtn .= '</a>';
+                    $newBtn .= '</div>';
+            
+                    echo $newBtn;
+            }
+        }
+        echo '</div>';
+    }
+}
+function hide_attributes_on_product_page($attributes, $product) {
+    // Specify the attributes that you want to hide (replace 'size' and 'color' with your own attribute slugs)
+    $hidden_attributes = array('size', 'color');
+
+    // Iterate through each attribute and remove the hidden ones from the list
+    foreach ($hidden_attributes as $hidden_attribute) {
+        if (isset($attributes[$hidden_attribute])) {
+            unset($attributes[$hidden_attribute]);
+        }
+    }
+
+    return $attributes;
+}
+add_action( 'astra_woo_single_title_after', 'CreateBtns', 10 );
+#add_filter( 'astra_remove_widget_design_options', '__return_false' );
+?>
